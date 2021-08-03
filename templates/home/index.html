@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %} 
+{% block activate_home %} active {% endblock activate_home%}
+{% block js %}
+      <script>
+      let previews=document.getElementsByClassName('preview');
+      Array.from(previews).forEach((element)=>{
+          element.innerHTML=element.innerText;
+      })
+      </script>
+{% endblock js %}
+
+{% block body %}
+<div class="container-fluid my-4">
+  <div
+    id="carouselExampleIndicators"
+    class="carousel slide"
+    data-bs-ride="carousel"
+  >
+    <ol class="carousel-indicators">
+      <li
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="0"
+        class="active"
+      ></li>
+      <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+      <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img
+          src="/static/img/1.jpg"
+          width="500"
+          height="450"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="/static/img/2.jpg"
+          width="500"
+          height="450"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="/static/img/3.jpg"
+          width="500"
+          height="450"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+    </div>
+    <a
+      class="carousel-control-prev"
+      href="#carouselExampleIndicators"
+      role="button"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </a>
+    <a
+      class="carousel-control-next"
+      href="#carouselExampleIndicators"
+      role="button"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </a>
+  </div>
+</div>
+
+<div class="container row">
+<h3 class="my-3 mx-2">Check out our polpular Blogs </h3>
+{% for post in posts %}
+<div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">Article by {{post.author}}</strong>
+          <h3 class="mb-0">{{post.title}}</h3>
+          <div class="mb-1 text-muted">{{post.timestamp}}</div>
+          <p class="card-text mb-auto "><div class="preview">{{post.content|safe|truncatechars:200}}</div></p>
+         <div class="container">
+         <a class="btn btn-primary" href="/blog/blogPost/{{post.slug}}" role="button">Continue Reading</a>
+         </div>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock body %}

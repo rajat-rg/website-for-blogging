@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block activate_home%} active {% endblock activate_home%}
+{% block title %}Blogs | Home{% endblock title %}
+{% block js %}
+      <script>
+      let previews=document.getElementsByClassName('preview');
+      Array.from(previews).forEach((element)=>{
+          element.innerHTML=element.innerText;
+      })
+      </script>
+      {% endblock js %}
+{% block body %}
+<div class="container">
+  
+  {% if posts|length < 1 %}
+  <div class="mx-5">
+  <h4 class="mx-3 my-3">oops! it seems like you haven't wrote any blogs yet</h4><br>
+  <h5 class="mx-3 my-2">To write blogs <a href="/blog/addPost">click here</a></h5>
+   
+</div>
+
+{% endif %}
+<h1 class="m-4">Blogs by {{user.first_name}}</h1>
+<div class="container">
+{% for post in posts %}
+<div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row my-4 mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">Article by {{post.author}}</strong>
+          <h3 class="mb-0">{{post.title}}</h3>
+          <div class="mb-1 text-muted">{{post.datetime}}</div>
+          <p class="card-text mb-auto"><div class="preview"> {{post.content|safe|truncatechars:250}}</div></p>
+         <div>
+         <a class="btn btn-primary" href="/blog/blogPost/{{post.slug}}" role="button">Continue Reading</a>
+         </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+{% endblock body %}

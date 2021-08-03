@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block activate_Blogs%} active {% endblock activate_Blogs%}
+{% block title %}Blogs | {{post.title}}{% endblock title %}
+{% comment %} {% load humanize %}  {% endcomment %}
+{% block body %}
+{% block style %}
+    <style>
+    .badge-info {
+        color: color: #fff;;
+        background-color: #17a2b8;
+    }
+    .badge-pill {
+        padding-right: .6em;
+        padding-left: .6em;
+        border-radius: 10rem;
+    }
+    </style>
+{% endblock style %}
+</style>
+<div class="container my-4 col-md-8">
+
+      <article class="blog-post">
+        <h2 class="blog-post-title">{{post.title}} <span class="badge badge-pill badge-info">({{post.views}} views)</span></h2>
+        <p class="blog-post-meta">{{post.timestamp}} by <strong>{{post.author}}</strong></p>
+        <hr>
+        <p>{{post.content|safe}}
+        </p>
+        <hr>
+
+      <div class="container" >
+        <h2  class="mb-2">Comments ({{comments.count}})</h2>
+        {% if user.is_authenticated %}
+        
+          <form method='post' action='/blog/postComment'>
+          {% csrf_token %}
+          <div class="input-group mb-3">
+            <input type="textarea" class="form-control" name="commentkr" id="commentkr"  placeholder="Post a comment" aria-label="Comment here" aria-describedby="button-addon2">
+            <input type="hidden" name="postSno" value="{{post.sno}}">
+            <button class="btn btn-info {% if "commentkr" == None %}{% block disabled %}{% endblock disabled %}{% endif %} "  type="submit" id="button-addon2">Comment </button>
+          </div>
+          </form>
+          {% else %}
+          <p><a type="button" style="color:blue" data-bs-toggle="modal" data-bs-target="#login"> <strong>LogIn</strong></a> to post a comment.</p>
+        {% endif %}
+        <div class="row my-3">
+          {% if comments|length < 1 %}
+           <h3 style="color:grey">Add a public comment to this blog.</h3>
+          {% endif %}
+        {% for comment in comments %}
+        
+          <div class="col-md-1"><img src="/static/img/admin.png" class="rounded float-start w-100" alt="user"></div>
+          <div class="col-md-11">
+          <p><b>{{comment.user}}</b> - {{comment.timestamp}}</p>
+          <div><p>{{comment.comment}}</p></div>
+          </div>
+  
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+
+{% endblock body %}

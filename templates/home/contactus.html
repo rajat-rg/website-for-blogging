@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us{% endblock title %}
+{% block activate_contactus%} active {% endblock activate_contactus%}
+{% block style %}.contact-us{
+  margin: 20px;
+  background-color: #52a1f1;
+  width: 800px;
+
+}
+.main-heading{
+  color: #black;
+  font-size: 35px;
+}
+.sub-heading{
+  color: #grey;
+  font-size: 15px;
+  pading-bottom:30px;
+}
+label["name"],
+label["phone"],
+label["email"],
+label["textarea"]
+{
+  font-family: "Helvetica Neue",
+  width:100;
+  
+}
+input[type="text"]
+{
+  width:500px;
+}
+input[type="number"]
+{
+  width:500px;
+}
+input[type="email"]
+{
+  width:500px;
+}
+#textarea
+{
+  width:500px;
+}
+
+{% endblock style %}
+{% block body %}
+<div class="container my-4 contact-us">
+
+<h3 class="main-heading">Contact Us</h3>
+<h4 class="sub-heading"> Welcome! You have reached the portal to communicte with the admins. Submit your details and query.</h4>
+ <form method="post" action="/contactus">
+ {% csrf_token %}
+<div class="mb-3">
+  <label for="name" class="form-label">Name</label>
+  <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required required>
+</div>
+
+<div class="mb-3">
+  <label for="phone" class="form-label">Phone number</label>
+   <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter phone number" required>
+</div>
+    <div class="mb-3">
+  <label for="email" class="form-label">Email address</label>
+  <input type="email" class="form-control" id="email"  name="email" placeholder="name@example.com" required>
+</div>
+<div class="mb-3">
+  <label for="testarea" class="form-label">Description</label>
+  <textarea class="form-control" id="textarea" name="desc" rows="3" required></textarea>
+</div>
+<button type="Submit" class="btn btn-primary">Submit</button>
+</div>
+</form>
+{% endblock body %}
+
