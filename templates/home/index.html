@@ -10,6 +10,24 @@
       </script>
 {% endblock js %}
 
+{% block style %}
+
+.footer {
+  padding:0;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  text-align: center;
+  
+}
+
+.footer .link a {
+  text-decoration: underline;
+  color: rgb(171, 143, 248);
+  margin-bottom:0;
+}
+
+{% endblock style %}
+
 {% block body %}
 <div class="container-fluid my-4">
   <div
@@ -94,5 +112,21 @@
     </div>
 {% endfor %}
 </div>
+
+<footer>
+  <div class="footer">
+    <p>
+      This project is developed by RAJAT GUPTA as a minor project and also to learn Django Framework of python.
+    </p>
+    <p>All rights reserved Rajat Gupta &copy 2021</p>
+    <p class="link">
+      <a
+        href="https://github.com/rajat-rg/website-for-blogging"
+        target="blank"
+        >Find the source code of this website by clicking HERE</a
+      >.
+    </p>
+  </div>
+</footer>
 
 {% endblock body %}
